@@ -43,13 +43,17 @@
           "ioValue": "__GEOMETRY_INPUT__"
         },
         {
+          "name": "factor",
+          "ioValue": 10
+        },
+        {
           "name": "center",
-          "ioValue": []
+          "ioValue": 10
         }
       ],
       "interpreterVersion": 1,
-      "code": "function run(shape: Assembly, factor: number, center: number[]) {\n  return shape.onLeafs((leaf) => {\n    leaf.geometry = replicad.scale(leaf.geometry, new replicad.Vector(center), factor)\n    return leaf;\n  })\n}",
-      "compiledCode": "\"use strict\";\nfunction run(shape, factor, center) {\n    return shape.onLeafs((leaf) => {\n        leaf.geometry = replicad.scale(leaf.geometry, new replicad.Vector(center), factor);\n        return leaf;\n    });\n}\n"
+      "code": "function run(shape: Assembly, factor: number, center: number[]) {\n  return shape.onLeafs((leaf) => {\n    let centerAsPoint: replicad.Point | undefined = undefined\n    if (leaf.is2D() && center.length == 2 || (!leaf.is2D() && center.length == 3)) {\n      centerAsPoint = center as replicad.Point;\n    } else {\n      centerAsPoint = leaf.geometry.boundingBox.center;\n    }\n    if (leaf.geometry instanceof replicad.Drawing) {\n      leaf.geometry = leaf.geometry.scale(factor, centerAsPoint as [number, number])\n    } else {\n      leaf.geometry = replicad.cast(replicad.scale(leaf.geometry.wrapped, centerAsPoint, factor))\n    }\n    return leaf;\n  })\n}",
+      "compiledCode": "\"use strict\";\nfunction run(shape, factor, center) {\n    return shape.onLeafs((leaf) => {\n        let centerAsPoint = undefined;\n        if (leaf.is2D() && center.length == 2 || (!leaf.is2D() && center.length == 3)) {\n            centerAsPoint = center;\n        }\n        else {\n            centerAsPoint = leaf.geometry.boundingBox.center;\n        }\n        if (leaf.geometry instanceof replicad.Drawing) {\n            leaf.geometry = leaf.geometry.scale(factor, centerAsPoint);\n        }\n        else {\n            leaf.geometry = replicad.cast(replicad.scale(leaf.geometry.wrapped, centerAsPoint, factor));\n        }\n        return leaf;\n    });\n}\n"
     },
     {
       "atomType": "Input",
@@ -76,7 +80,28 @@
       "pointValue": null
     }
   ],
-  "allConnectors": [],
+  "allConnectors": [
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-4",
+      "ap2ID": "id-2"
+    },
+    {
+      "ap2Name": "shape",
+      "ap1ID": "id-13",
+      "ap2ID": "id-4"
+    },
+    {
+      "ap2Name": "factor",
+      "ap1ID": "id-16",
+      "ap2ID": "id-4"
+    },
+    {
+      "ap2Name": "center",
+      "ap1ID": "id-19",
+      "ap2ID": "id-4"
+    }
+  ],
   "unitsKey": "Unitless",
   "fileTypeVersion": 1,
   "filetypeVersion": 1
