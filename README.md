@@ -7,8 +7,8 @@
 ## Inputs
 
 - **shape** (geometry)
-- **factor** (undefined)
-- **center** (point3d)
+- **factor** (number)
+- **center** (array)
 
 
 
