@@ -58,7 +58,7 @@
     {
       "atomType": "Input",
       "x": 0.0231,
-      "y": 0.2714285714285714,
+      "y": 0.14,
       "uniqueID": "id-13",
       "name": "shape",
       "type": "geometry"
@@ -66,18 +66,17 @@
     {
       "atomType": "Input",
       "x": 0.0231,
-      "y": 0.43714285714285717,
+      "y": 0.22400000000000003,
       "uniqueID": "id-16",
       "name": "factor"
     },
     {
       "atomType": "Input",
       "x": 0.0231,
-      "y": 0.5657142857142857,
+      "y": 0.30800000000000005,
       "uniqueID": "id-19",
       "name": "center",
-      "type": "point3d",
-      "pointValue": null
+      "type": "array"
     }
   ],
   "allConnectors": [
